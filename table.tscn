@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg2iq0o3ni7ad"]
+
+[ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://Paddle.tscn" id="1_ma5sq"]
+[ext_resource type="Texture2D" uid="uid://ba5o8q2ypt3le" path="res://assets/net.png" id="1_mv01v"]
+[ext_resource type="Script" path="res://Player.cs" id="2_bbw6p"]
+[ext_resource type="Texture2D" uid="uid://diqpln1to6ukg" path="res://assets/ball.png" id="3_c6tf4"]
+[ext_resource type="Script" path="res://Ball.cs" id="3_wsxrw"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0gfho"]
+bounce = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qj1b"]
+radius = 8.06226
+
+[node name="Table" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_ma5sq")]
+position = Vector2(45, 350)
+script = ExtResource("2_bbw6p")
+maxSpeed = 500
+acceleration = 1000
+friction = 1000
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(63, 400)
+physics_material_override = SubResource("PhysicsMaterial_0gfho")
+gravity_scale = 0.0
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("3_wsxrw")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+texture = ExtResource("3_c6tf4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_4qj1b")
+
+[node name="Enemy" parent="." instance=ExtResource("1_ma5sq")]
+position = Vector2(1145, 350)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(595, 0)
+texture = ExtResource("1_mv01v")
+offset = Vector2(5, 400)

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "jong", "jong.csproj", "{CBE48079-CD07-4E29-B6D0-3950E00957F9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		ExportDebug|Any CPU = ExportDebug|Any CPU
+		ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{CBE48079-CD07-4E29-B6D0-3950E00957F9}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2DD0EC58-8946-434E-A8C8-DF6D91983AA0}
+	EndGlobalSection
+EndGlobal

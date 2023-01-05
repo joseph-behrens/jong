@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "jong": {
+      "commandName": "Project",
+      "commandLineArgs": "--path C:\\Users\\behre\\Documents\\jong",
+      "workingDirectory": ".",
+      "hotReloadEnabled": true
+    }
+  }
+}
