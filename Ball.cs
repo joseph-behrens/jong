@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class Ball : RigidBody2D
@@ -13,7 +14,6 @@ public partial class Ball : RigidBody2D
     {
         var random = new Random();
         LinearVelocity = new Vector2(maxSpeed, random.Next(-maxSpeed, maxSpeed));
-		//velocity = new Vector2(maxSpeed, random.Next(-maxSpeed, maxSpeed));
     }
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,12 +26,23 @@ public partial class Ball : RigidBody2D
 		}
 	}
 
-	public void OnPlayerWallAreaEntered(Node2D body)
+	public void BallEnteredPlayerGoal(Node2D body)
 	{
-		GD.Print("Ball entered player wall");
-		QueueFree();
-		// Update score for enemy
-		// Check for winner
-		// Launch new ball
+		updateScore("PlayerScore");
 	}
+
+    public void BallEnteredEnemyGoal(Node2D body)
+    {
+		updateScore("EnemyScore");
+    }
+
+	private void updateScore(string scoreToUpdate)
+	{
+		QueueFree();
+		Label scoreLabel = GetParent().GetNodeOrNull<Label>(scoreToUpdate);
+		int currentScore = Int32.Parse(scoreLabel.Text);
+		scoreLabel.Text =  (currentScore + 1).ToString();
+        // Check for winner
+        // Launch new ball
+    }
 }
