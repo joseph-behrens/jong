@@ -9,16 +9,20 @@ public partial class Enemy : CharacterBody2D
     int acceleration = 500;
     [Export]
     int friction = 500;
+    Ball ball;
+    Vector2 initialPosition;
 
+    public override void _Ready()
+    {
+        initialPosition = Position;
+        ball = GetParent().GetNodeOrNull<Ball>("Ball");
+    }
     public override void _PhysicsProcess(double delta)
     {
         Vector2 inputVector = Vector2.Zero;
-        RigidBody2D ball = GetParent().GetNodeOrNull<RigidBody2D>("Ball");
 
         if (ball is not null && (ball.Position.y != Position.y))
         {
-            GD.Print(ball.Position.y);
-            GD.Print(ball.LinearVelocity);
             inputVector.y = ball.LinearVelocity.y;
             Velocity = Velocity.MoveToward(inputVector, acceleration * (float)delta);
         }
@@ -28,4 +32,10 @@ public partial class Enemy : CharacterBody2D
         }
         MoveAndSlide();
 	}
+
+    public void Reset()
+    {
+        Position = initialPosition;
+        Velocity = Vector2.Zero;
+    }
 }

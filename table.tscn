@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bg2iq0o3ni7ad"]
+[gd_scene load_steps=14 format=3 uid="uid://bg2iq0o3ni7ad"]
 
+[ext_resource type="Script" path="res://main.cs" id="1_12ktq"]
 [ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://Paddle.tscn" id="1_ma5sq"]
 [ext_resource type="Texture2D" uid="uid://ba5o8q2ypt3le" path="res://assets/net.png" id="1_mv01v"]
 [ext_resource type="Script" path="res://Player.cs" id="2_bbw6p"]
@@ -21,7 +22,12 @@ size = Vector2(1191, 33.25)
 [sub_resource type="LabelSettings" id="LabelSettings_m8prm"]
 font_size = 64
 
+[sub_resource type="LabelSettings" id="LabelSettings_1qp3b"]
+font_size = 64
+font_color = Color(0.988235, 0.992157, 0.996078, 1)
+
 [node name="Table" type="Node2D"]
+script = ExtResource("1_12ktq")
 
 [node name="Player" parent="." instance=ExtResource("1_ma5sq")]
 position = Vector2(45, 350)
@@ -90,5 +96,16 @@ offset_bottom = 171.0
 text = "0"
 label_settings = SubResource("LabelSettings_m8prm")
 
-[connection signal="body_entered" from="PlayerGoal" to="Ball" method="BallEnteredPlayerGoal"]
-[connection signal="body_entered" from="EnemyGoal" to="Ball" method="BallEnteredEnemyGoal"]
+[node name="GameOver" type="Label" parent="."]
+visible = false
+offset_left = 78.0
+offset_top = 523.0
+offset_right = 547.0
+offset_bottom = 705.0
+text = "Game Over
+You won!!"
+label_settings = SubResource("LabelSettings_1qp3b")
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="PlayerGoal" to="." method="BallEnteredPlayerGoal"]
+[connection signal="body_entered" from="EnemyGoal" to="." method="BallEnteredEnemyGoal"]
