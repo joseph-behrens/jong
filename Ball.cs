@@ -9,11 +9,15 @@ public partial class Ball : RigidBody2D
 	Vector2 windowSize;
 	Vector2 velocity;
 	Vector2 initialPosition;
+	bool hasLaunched = false;
+
+    public bool HasLaunched { get => hasLaunched; private set => hasLaunched = value; }
+	public Vector2 InitialPoition { get; private set; }
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
-		initialPosition = Position;
+        InitialPoition = Position;
 		Reset();
     }
 
@@ -25,11 +29,11 @@ public partial class Ball : RigidBody2D
 		{
             LinearVelocity = LinearVelocity.Bounce(collisionInfo.GetNormal());
 			var colliderId = collisionInfo.GetColliderId();
-			var playerId = GetParent().GetNode<Player>("Player").GetInstanceId();
+			var playerId = FindParent("Table").GetNode<Player>("Paddles/Player").GetInstanceId();
             if ((Input.IsActionPressed("ui_up") || Input.IsActionPressed("ui_down")) && colliderId == playerId)
 			{
-				LinearVelocity = LinearVelocity * 1.5f;
-				AngularVelocity = AngularVelocity * 1000F;
+				LinearVelocity *= 1.5f;
+				AngularVelocity *= 1000F;
             }
 			
 			GD.Print(LinearVelocity.ToString());
@@ -38,7 +42,14 @@ public partial class Ball : RigidBody2D
 
 	public void Reset()
     {
-        Position = initialPosition;
+		HasLaunched = false;
+		LinearVelocity = Vector2.Zero;
+        Position = InitialPoition;
+    }
+
+	public void Launch()
+    {
+        HasLaunched = true;
         var random = new Random();
         LinearVelocity = new Vector2(maxSpeed, random.Next(-maxSpeed, maxSpeed));
     }

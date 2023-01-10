@@ -9,7 +9,12 @@ public partial class Player : CharacterBody2D
 	int acceleration = 500;
 	[Export]
 	int friction = 500;
+    public Vector2 InitialPosition { get; private set; }
 
+    public override void _Ready()
+    {
+		InitialPosition = Position;
+    }
     public override void _PhysicsProcess(double delta)
 	{
 		Vector2 inputVector = Vector2.Zero;
@@ -25,4 +30,9 @@ public partial class Player : CharacterBody2D
 		}	
         MoveAndSlide();
     }
+
+	public void Reset()
+	{
+		Position = InitialPosition;
+	}
 }

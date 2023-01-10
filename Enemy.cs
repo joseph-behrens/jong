@@ -12,10 +12,12 @@ public partial class Enemy : CharacterBody2D
     Ball ball;
     Vector2 initialPosition;
 
+    public Vector2 InitialPosition { get; private set; }
+
     public override void _Ready()
     {
-        initialPosition = Position;
-        ball = GetParent().GetNodeOrNull<Ball>("Ball");
+        InitialPosition = Position;
+        ball = FindParent("Table").GetNodeOrNull<Ball>("Ball");
     }
     public override void _PhysicsProcess(double delta)
     {
@@ -35,7 +37,7 @@ public partial class Enemy : CharacterBody2D
 
     public void Reset()
     {
-        Position = initialPosition;
+        Position = InitialPosition;
         Velocity = Vector2.Zero;
     }
 }

@@ -16,9 +16,6 @@ bounce = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qj1b"]
 radius = 8.06226
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mv71i"]
-size = Vector2(1191, 33.25)
-
 [sub_resource type="LabelSettings" id="LabelSettings_m8prm"]
 font_size = 64
 
@@ -26,15 +23,12 @@ font_size = 64
 font_size = 64
 font_color = Color(0.988235, 0.992157, 0.996078, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mv71i"]
+size = Vector2(1191, 33.25)
+
 [node name="Table" type="Node2D"]
 script = ExtResource("1_12ktq")
-
-[node name="Player" parent="." instance=ExtResource("1_ma5sq")]
-position = Vector2(45, 350)
-script = ExtResource("2_bbw6p")
-maxSpeed = 500
-acceleration = 1000
-friction = 1000
+winningScore = 1
 
 [node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2(63, 400)
@@ -52,35 +46,22 @@ texture = ExtResource("3_c6tf4")
 position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_4qj1b")
 
-[node name="Enemy" parent="." instance=ExtResource("1_ma5sq")]
+[node name="Paddles" type="Node" parent="."]
+
+[node name="Player" parent="Paddles" instance=ExtResource("1_ma5sq")]
+position = Vector2(45, 350)
+script = ExtResource("2_bbw6p")
+maxSpeed = 500
+acceleration = 1000
+friction = 1000
+
+[node name="Enemy" parent="Paddles" instance=ExtResource("1_ma5sq")]
 position = Vector2(1145, 350)
 script = ExtResource("5_6fcdl")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(595, 0)
-texture = ExtResource("1_mv01v")
-offset = Vector2(5, 400)
+[node name="Labels" type="Node" parent="."]
 
-[node name="PlayerGoal" parent="." instance=ExtResource("7_31yas")]
-
-[node name="TopWall" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopWall"]
-position = Vector2(597.75, -21.75)
-shape = SubResource("RectangleShape2D_mv71i")
-
-[node name="BottomWall" type="StaticBody2D" parent="."]
-position = Vector2(11, 827)
-metadata/_edit_group_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomWall"]
-position = Vector2(588.5, -10.375)
-shape = SubResource("RectangleShape2D_mv71i")
-
-[node name="EnemyGoal" parent="." instance=ExtResource("7_31yas")]
-position = Vector2(1233, -3)
-
-[node name="PlayerScore" type="Label" parent="."]
+[node name="PlayerScore" type="Label" parent="Labels"]
 offset_left = 400.0
 offset_top = 80.0
 offset_right = 440.0
@@ -88,7 +69,7 @@ offset_bottom = 171.0
 text = "0"
 label_settings = SubResource("LabelSettings_m8prm")
 
-[node name="EnemyScore" type="Label" parent="."]
+[node name="EnemyScore" type="Label" parent="Labels"]
 offset_left = 800.0
 offset_top = 80.0
 offset_right = 840.0
@@ -96,16 +77,43 @@ offset_bottom = 171.0
 text = "0"
 label_settings = SubResource("LabelSettings_m8prm")
 
-[node name="GameOver" type="Label" parent="."]
+[node name="GameOver" type="Label" parent="Labels"]
 visible = false
-offset_left = 78.0
-offset_top = 523.0
-offset_right = 547.0
-offset_bottom = 705.0
+offset_left = 107.0
+offset_top = 212.0
+offset_right = 576.0
+offset_bottom = 772.0
 text = "Game Over
 You won!!"
 label_settings = SubResource("LabelSettings_1qp3b")
 horizontal_alignment = 1
+autowrap_mode = 3
 
-[connection signal="body_entered" from="PlayerGoal" to="." method="BallEnteredPlayerGoal"]
-[connection signal="body_entered" from="EnemyGoal" to="." method="BallEnteredEnemyGoal"]
+[node name="GoalsAndWalls" type="Node" parent="."]
+
+[node name="PlayerGoal" parent="GoalsAndWalls" instance=ExtResource("7_31yas")]
+
+[node name="TopWall" type="StaticBody2D" parent="GoalsAndWalls"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalsAndWalls/TopWall"]
+position = Vector2(597.75, -21.75)
+shape = SubResource("RectangleShape2D_mv71i")
+
+[node name="BottomWall" type="StaticBody2D" parent="GoalsAndWalls"]
+position = Vector2(11, 827)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalsAndWalls/BottomWall"]
+position = Vector2(588.5, -10.375)
+shape = SubResource("RectangleShape2D_mv71i")
+
+[node name="EnemyGoal" parent="GoalsAndWalls" instance=ExtResource("7_31yas")]
+position = Vector2(1233, -3)
+
+[node name="Net" type="Sprite2D" parent="GoalsAndWalls"]
+position = Vector2(595, 0)
+texture = ExtResource("1_mv01v")
+offset = Vector2(5, 400)
+
+[connection signal="body_entered" from="GoalsAndWalls/PlayerGoal" to="." method="BallEnteredPlayerGoal"]
+[connection signal="body_entered" from="GoalsAndWalls/EnemyGoal" to="." method="BallEnteredEnemyGoal"]
