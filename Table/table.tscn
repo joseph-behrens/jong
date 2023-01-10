@@ -1,13 +1,13 @@
-[gd_scene load_steps=14 format=3 uid="uid://bg2iq0o3ni7ad"]
+[gd_scene load_steps=14 format=3]
 
-[ext_resource type="Script" path="res://main.cs" id="1_12ktq"]
-[ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://Paddle.tscn" id="1_ma5sq"]
+[ext_resource type="Script" path="res://Table/main.cs" id="1_12ktq"]
+[ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://BallsAndPaddles/Paddle.tscn" id="1_ma5sq"]
 [ext_resource type="Texture2D" uid="uid://ba5o8q2ypt3le" path="res://assets/net.png" id="1_mv01v"]
-[ext_resource type="Script" path="res://Player.cs" id="2_bbw6p"]
+[ext_resource type="Script" path="res://BallsAndPaddles/Player.cs" id="2_bbw6p"]
 [ext_resource type="Texture2D" uid="uid://diqpln1to6ukg" path="res://assets/ball.png" id="3_c6tf4"]
-[ext_resource type="Script" path="res://Ball.cs" id="3_wsxrw"]
-[ext_resource type="Script" path="res://Enemy.cs" id="5_6fcdl"]
-[ext_resource type="PackedScene" uid="uid://cm1reic3fysa1" path="res://Goal.tscn" id="7_31yas"]
+[ext_resource type="Script" path="res://BallsAndPaddles/Ball.cs" id="3_wsxrw"]
+[ext_resource type="Script" path="res://BallsAndPaddles/Enemy.cs" id="5_6fcdl"]
+[ext_resource type="PackedScene" uid="uid://cm1reic3fysa1" path="res://Table/Goal.tscn" id="7_31yas"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0gfho"]
 friction = 0.0
