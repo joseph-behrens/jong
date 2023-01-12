@@ -1,6 +1,11 @@
 using Godot;
 using System;
 
+
+// TODO: Keep track of matches won/lost and total points
+// TODO: Allow save of stats
+// TODO: Add sound
+// TODO: Add two player mode
 public partial class main : Node2D
 {
     [Export]
@@ -88,6 +93,7 @@ public partial class main : Node2D
         {
             ball.Reset();
             enemyPaddle.Reset();
+            playerPaddle.Reset();
         }
     }
 }

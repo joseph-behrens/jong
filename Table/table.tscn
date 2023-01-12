@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=15 format=3 uid="uid://bredxiew1vga"]
 
 [ext_resource type="Script" path="res://Table/main.cs" id="1_12ktq"]
 [ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://BallsAndPaddles/Paddle.tscn" id="1_ma5sq"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://BallsAndPaddles/Ball.cs" id="3_wsxrw"]
 [ext_resource type="Script" path="res://BallsAndPaddles/Enemy.cs" id="5_6fcdl"]
 [ext_resource type="PackedScene" uid="uid://cm1reic3fysa1" path="res://Table/Goal.tscn" id="7_31yas"]
+[ext_resource type="Script" path="res://Table/StartMessage.cs" id="7_qqnj3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0gfho"]
 friction = 0.0
@@ -28,7 +29,6 @@ size = Vector2(1191, 33.25)
 
 [node name="Table" type="Node2D"]
 script = ExtResource("1_12ktq")
-winningScore = 1
 
 [node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2(63, 400)
@@ -52,8 +52,6 @@ shape = SubResource("CircleShape2D_4qj1b")
 position = Vector2(45, 350)
 script = ExtResource("2_bbw6p")
 maxSpeed = 500
-acceleration = 1000
-friction = 1000
 
 [node name="Enemy" parent="Paddles" instance=ExtResource("1_ma5sq")]
 position = Vector2(1145, 350)
@@ -88,6 +86,16 @@ You won!!"
 label_settings = SubResource("LabelSettings_1qp3b")
 horizontal_alignment = 1
 autowrap_mode = 3
+
+[node name="StartMessage" type="Label" parent="Labels"]
+offset_left = 86.0
+offset_top = 191.0
+offset_right = 580.0
+offset_bottom = 303.0
+text = "Press the space bar to launch the ball
+
+Move the paddle with the up and down arrows on you keyboard"
+script = ExtResource("7_qqnj3")
 
 [node name="GoalsAndWalls" type="Node" parent="."]
 

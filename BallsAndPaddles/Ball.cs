@@ -35,8 +35,6 @@ public partial class Ball : RigidBody2D
 				LinearVelocity *= 1.5f;
 				AngularVelocity *= 1000F;
             }
-			
-			GD.Print(LinearVelocity.ToString());
 		}
 	}
 
