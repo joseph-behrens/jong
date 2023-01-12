@@ -1,49 +1,55 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+
+
 
 public partial class Enemy : CharacterBody2D
 {
     [Export]
-    int maxSpeed = 2000;
+    int maxSpeed = 1000;
     [Export]
     int acceleration = 2000;
     [Export]
     int friction = 2000;
     Ball ball;
     Vector2 initialPosition;
-
+    Vector2 direction;
+    float modifier;
+    
     public Vector2 InitialPosition { get; private set; }
+
+
+    class DifficultyLevel
+    {
+        public static float Hard { get; } = 0.15F;
+        public static float Normal { get; } = 0.125F;
+        public static float Easy { get; } = 0.085F;
+    }
 
     public override void _Ready()
     {
         InitialPosition = Position;
         ball = FindParent("Table").GetNodeOrNull<Ball>("Ball");
+        modifier = GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.y / 2;
     }
     public override void _PhysicsProcess(double delta)
     {
         Vector2 inputVector = Vector2.Zero;
 
-        // TODO: Find a better way to do this. There's jitter when the ball is coming straight and
-        //          It also sometimes doesn't quite catch the bounce properly
         if (ball is not null && (ball.Position.y != Position.y) && ball.LinearVelocity != Vector2.Zero)
         {
-            inputVector.y = ball.Position.y;
-            float comparison = Position.y + GetNode<CollisionShape2D>("CollisionShape2D").Shape.GetRect().Size.y / 2;
-            if (ball.Position.y < comparison)
-            {
-                Velocity = Velocity.MoveToward(-inputVector, acceleration * (float)delta);
-            }
-            else
-            {
-                Velocity = Velocity.MoveToward(inputVector, acceleration * (float)delta);
-            }
+            inputVector = Position;
+            inputVector.y = Position.y + modifier;
+            direction = ball.Position - inputVector;
+            direction.x = 0;
         }
         else
         {
-            Velocity = Velocity.MoveToward(Vector2.Zero, friction * (float)delta);
+            direction = Vector2.Zero;
         }
-        MoveAndSlide();
+        MoveAndCollide(direction * DifficultyLevel.Normal);
 	}
 
     public void Reset()
