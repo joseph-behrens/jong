@@ -1,2 +1,2 @@
-﻿58085
+﻿52672
 C:/Program Files/Godot/Godot_v4.0-beta7_mono_win64/Godot_v4.0-beta7_mono_win64.exe

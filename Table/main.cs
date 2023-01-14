@@ -14,13 +14,24 @@ public partial class main : Node2D
     Ball ball;
     Player playerPaddle;
     bool gameHasEnded = false;
-    
+    AudioStreamPlayer2D soundtrack;
+    AudioStreamPlayer2D playerScored;
+    AudioStreamPlayer2D enemyScored;
+    AudioStreamPlayer2D lostGame;
+    AudioStreamPlayer2D wonGame;
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
         enemyPaddle = GetNode<Enemy>("Paddles/Enemy");
         playerPaddle = GetNode<Player>("Paddles/Player");
         ball = GetNode<Ball>("Ball");
+        soundtrack = GetNode<AudioStreamPlayer2D>("Audio/SoundTrack");
+        lostGame = GetNode<AudioStreamPlayer2D>("Audio/PlayerLost");
+        wonGame = GetNode<AudioStreamPlayer2D>("Audio/PlayerWon");
+        playerScored = GetNode<AudioStreamPlayer2D>("Audio/PlayerScored");
+        enemyScored = GetNode<AudioStreamPlayer2D>("Audio/EnemyScored");
+        soundtrack.Play();
     }
 
     public override void _PhysicsProcess(double delta)
@@ -40,6 +51,7 @@ public partial class main : Node2D
 
         if (gameHasEnded)
         {
+            soundtrack.Stop();
             if (Input.IsActionJustPressed("restart"))
             {
                 StartNewGame();
@@ -56,15 +68,18 @@ public partial class main : Node2D
         GetNode<Label>("Labels/EnemyScore").Text = "0";
         GetNode<Label>("Labels/GameOver").Hide();
         gameHasEnded = false;
+        soundtrack.Play();
     }
 
     public void BallEnteredPlayerGoal(Node2D body)
     {
+        enemyScored.Play();
         UpdateScore("Labels/EnemyScore");
     }
 
     public void BallEnteredEnemyGoal(Node2D body)
     {
+        playerScored.Play();
         UpdateScore("Labels/PlayerScore");
     }
 
@@ -79,10 +94,12 @@ public partial class main : Node2D
             Label gameOver = GetNode<Label>("Labels/GameOver");
             if (scoreToUpdate == "Labels/PlayerScore")
             {
+                wonGame.Play();
                 gameOver.Text = "Game Over\nYou won!!";
             }
             else
             {
+                lostGame.Play();
                 gameOver.Text = "Game Over\nYou Lost...";
             }
             gameOver.Text += "\n\npress enter to play again";

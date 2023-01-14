@@ -1,5 +1,6 @@
-Label
+AudioStreamPlayer2D
 Node
+Label
 CollisionShape2D
 StaticBody2D
 CollisionPolygon2D

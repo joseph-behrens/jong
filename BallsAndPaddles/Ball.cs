@@ -10,6 +10,7 @@ public partial class Ball : RigidBody2D
 	Vector2 velocity;
 	Vector2 initialPosition;
 	bool hasLaunched = false;
+	AudioStreamPlayer2D bounceSound;
 
     public bool HasLaunched { get => hasLaunched; private set => hasLaunched = value; }
 	public Vector2 InitialPoition { get; private set; }
@@ -17,6 +18,7 @@ public partial class Ball : RigidBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
     {
+		bounceSound = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
         InitialPoition = Position;
 		Reset();
     }
@@ -27,6 +29,7 @@ public partial class Ball : RigidBody2D
 		KinematicCollision2D collisionInfo = MoveAndCollide(LinearVelocity * (float)delta);
 		if (collisionInfo != null) 
 		{
+			bounceSound.Play();
             LinearVelocity = LinearVelocity.Bounce(collisionInfo.GetNormal());
 			var colliderId = collisionInfo.GetColliderId();
 			var playerId = FindParent("Table").GetNode<Player>("Paddles/Player").GetInstanceId();
