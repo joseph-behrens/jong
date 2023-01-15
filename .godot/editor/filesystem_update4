@@ -1,2 +1,3 @@
-res://BallsAndPaddles/Paddle.tscn
 res://Table/table.tscn
+res://Table/Menu.tscn
+res://Table/Credits.tscn

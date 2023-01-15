@@ -1,0 +1,108 @@
+[gd_scene load_steps=7 format=3 uid="uid://nj1kesjhlhfq"]
+
+[ext_resource type="Script" path="res://Table/Credits.cs" id="1_5r6ay"]
+[ext_resource type="Script" path="res://Table/BackButton.cs" id="1_ku7kg"]
+
+[sub_resource type="SystemFont" id="SystemFont_jdoku"]
+font_style = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_6720l"]
+font = SubResource("SystemFont_jdoku")
+font_size = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ne27c"]
+bg_color = Color(0.331245, 0.450184, 0.246009, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3p5b2"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_5r6ay")
+
+[node name="GridContainer" type="GridContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = -91.0
+offset_right = 342.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/h_separation = 20
+columns = 3
+
+[node name="Bold" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Development"
+label_settings = SubResource("LabelSettings_6720l")
+
+[node name="Standard" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Joe Behrens"
+
+[node name="Control" type="Control" parent="GridContainer"]
+layout_mode = 2
+
+[node name="Bold2" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "SoundFX"
+label_settings = SubResource("LabelSettings_6720l")
+
+[node name="Standard2" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Kenney"
+
+[node name="KenneyLink" type="LinkButton" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+text = "https://www.kenney.nl/assets?q=audio"
+
+[node name="Bold3" type="Label" parent="GridContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Music"
+label_settings = SubResource("LabelSettings_6720l")
+
+[node name="Standard3" type="Label" parent="GridContainer"]
+layout_mode = 2
+text = "Bryan Lake"
+
+[node name="99SoundsLink" type="LinkButton" parent="GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+text = "https://99sounds.org/project-pegasus"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -200.0
+offset_right = 25.0
+offset_bottom = -169.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_ne27c")
+theme_override_styles/hover = SubResource("StyleBoxFlat_3p5b2")
+text = "Back
+"
+script = ExtResource("1_ku7kg")
+
+[connection signal="pressed" from="GridContainer/KenneyLink" to="." method="OnKenneyLinkPressed"]
+[connection signal="pressed" from="GridContainer/99SoundsLink" to="." method="On99SoundsLinkPressed"]
+[connection signal="pressed" from="Button" to="Button" method="OnPressed"]

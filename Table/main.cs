@@ -4,25 +4,27 @@ using System;
 
 // TODO: Keep track of matches won/lost and total points
 // TODO: Allow save of stats
-// TODO: Add sound
 // TODO: Add two player mode
 public partial class main : Node2D
 {
-    [Export]
-    int winningScore = 11;
+    bool gameHasEnded = false;
+
+    int winningScore;
     Enemy enemyPaddle;
     Ball ball;
     Player playerPaddle;
-    bool gameHasEnded = false;
     AudioStreamPlayer2D soundtrack;
     AudioStreamPlayer2D playerScored;
     AudioStreamPlayer2D enemyScored;
     AudioStreamPlayer2D lostGame;
     AudioStreamPlayer2D wonGame;
+    Properties propertiesValues;
 
-    // Called when the node enters the scene tree for the first time.
+
     public override void _Ready()
     {
+        propertiesValues = GetNode<Properties>("/root/Properties");
+        winningScore = propertiesValues.winningScore;
         enemyPaddle = GetNode<Enemy>("Paddles/Enemy");
         playerPaddle = GetNode<Player>("Paddles/Player");
         ball = GetNode<Ball>("Ball");
@@ -41,21 +43,17 @@ public partial class main : Node2D
             ball.Launch();
         }
 
+        if (Input.IsActionPressed("ui_cancel"))
+        {
+            GetTree().ChangeSceneToFile("res://Table/Menu.tscn");
+        }
+
         if (!ball.HasLaunched)
         {
             Vector2 inputValue = Vector2.Zero;
             inputValue.y = playerPaddle.Position.y + 50;
             inputValue.x = playerPaddle.Position.x + 18;
             ball.Position = inputValue;
-        }
-
-        if (gameHasEnded)
-        {
-            soundtrack.Stop();
-            if (Input.IsActionJustPressed("restart"))
-            {
-                StartNewGame();
-            }
         }
     }
 
@@ -66,7 +64,8 @@ public partial class main : Node2D
         playerPaddle.Reset();
         GetNode<Label>("Labels/PlayerScore").Text = "0";
         GetNode<Label>("Labels/EnemyScore").Text = "0";
-        GetNode<Label>("Labels/GameOver").Hide();
+        GetNode<Label>("Labels/GameOverLeft").Hide();
+        GetNode<Label>("Labels/GameOverRight").Hide();
         gameHasEnded = false;
         soundtrack.Play();
     }
@@ -91,19 +90,21 @@ public partial class main : Node2D
         scoreLabel.Text = (currentScore + 1).ToString();
         if (currentScore + 1 == winningScore)
         {
-            Label gameOver = GetNode<Label>("Labels/GameOver");
+            soundtrack.Stop();
+            Label gameOverRight = GetNode<Label>("Labels/GameOverRight");
+            Label gameOverLeft = GetNode <Label>("Labels/GameOverLeft");
             if (scoreToUpdate == "Labels/PlayerScore")
             {
                 wonGame.Play();
-                gameOver.Text = "Game Over\nYou won!!";
+                gameOverLeft.Text = "Game Over\nYou won!!";
             }
             else
             {
                 lostGame.Play();
-                gameOver.Text = "Game Over\nYou Lost...";
+                gameOverLeft.Text = "Game Over\nYou Lost...";
             }
-            gameOver.Text += "\n\npress enter to play again";
-            gameOver.Show();
+            gameOverLeft.Show();
+            gameOverRight.Show();
             gameHasEnded = true;
         }
         else

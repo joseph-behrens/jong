@@ -1,19 +1,19 @@
 using Godot;
+using Godot.Collections;
 using System;
 
 public partial class Player : CharacterBody2D
 {
-	[Export]
-	int maxSpeed = 1000;
-	[Export]
-	int acceleration = 1000;
-	[Export]
-	int friction = 1000;
+    Properties propertiesValues;
+    int maxSpeed;
+	int acceleration = 2000;
+	int friction = 2000;
     public Vector2 InitialPosition { get; private set; }
-
     public override void _Ready()
     {
-		InitialPosition = Position;
+        propertiesValues = GetNode<Properties>("/root/Properties");
+		maxSpeed = (int)propertiesValues.playerPaddleSpeed;
+        InitialPosition = Position;
     }
     public override void _PhysicsProcess(double delta)
 	{

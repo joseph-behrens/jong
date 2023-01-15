@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="jong"
-run/main_scene="res://Table/table.tscn"
+run/main_scene="res://Table/Menu.tscn"
 config/features=PackedStringArray("4.0", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Properties="*res://Properties/Properties.cs"
 
 [display]
 

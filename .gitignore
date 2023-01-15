@@ -711,5 +711,6 @@ healthchecksdb
 MigrationBackup/
 *.exe
 *.pck
-/data_jong_x86_64
+/data_jong_x86_64/*
+!/data_jong_x86_64/*.json
 /.godot/exported/133200997

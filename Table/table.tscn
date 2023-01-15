@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bredxiew1vga"]
+[gd_scene load_steps=22 format=3 uid="uid://bredxiew1vga"]
 
 [ext_resource type="Script" path="res://Table/main.cs" id="1_12ktq"]
 [ext_resource type="PackedScene" uid="uid://r0713xmfbceg" path="res://BallsAndPaddles/Paddle.tscn" id="1_ma5sq"]
@@ -30,12 +30,14 @@ font_size = 64
 font_size = 64
 font_color = Color(0.988235, 0.992157, 0.996078, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_phox0"]
+font_size = 48
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mv71i"]
 size = Vector2(1191, 33.25)
 
 [node name="Table" type="Node2D"]
 script = ExtResource("1_12ktq")
-winningScore = 3
 
 [node name="Ball" type="RigidBody2D" parent="."]
 position = Vector2(63, 400)
@@ -61,7 +63,6 @@ stream = ExtResource("4_4vbvi")
 [node name="Player" parent="Paddles" instance=ExtResource("1_ma5sq")]
 position = Vector2(45, 350)
 script = ExtResource("2_bbw6p")
-maxSpeed = 500
 
 [node name="Enemy" parent="Paddles" instance=ExtResource("1_ma5sq")]
 position = Vector2(1145, 350)
@@ -85,7 +86,7 @@ offset_bottom = 171.0
 text = "0"
 label_settings = SubResource("LabelSettings_m8prm")
 
-[node name="GameOver" type="Label" parent="Labels"]
+[node name="GameOverLeft" type="Label" parent="Labels"]
 visible = false
 offset_left = 107.0
 offset_top = 212.0
@@ -101,11 +102,24 @@ autowrap_mode = 3
 offset_left = 86.0
 offset_top = 191.0
 offset_right = 580.0
-offset_bottom = 303.0
+offset_bottom = 342.0
 text = "Press the space bar to launch the ball
 
-Move the paddle with the up and down arrows on you keyboard"
+Move the paddle with the up and down arrows on the keyboard
+
+Press esc at any time to end the match and return to the menu"
 script = ExtResource("7_qqnj3")
+
+[node name="GameOverRight" type="Label" parent="Labels"]
+visible = false
+offset_left = 616.0
+offset_top = 229.0
+offset_right = 1189.0
+offset_bottom = 789.0
+text = "Press the esc key to return to the main menu"
+label_settings = SubResource("LabelSettings_phox0")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="GoalsAndWalls" type="Node" parent="."]
 

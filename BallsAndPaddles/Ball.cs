@@ -6,10 +6,11 @@ public partial class Ball : RigidBody2D
 {
 	[Export]
 	int maxSpeed = 500;
-	Vector2 windowSize;
+    bool hasLaunched = false;
+
+    Vector2 windowSize;
 	Vector2 velocity;
 	Vector2 initialPosition;
-	bool hasLaunched = false;
 	AudioStreamPlayer2D bounceSound;
 
     public bool HasLaunched { get => hasLaunched; private set => hasLaunched = value; }
